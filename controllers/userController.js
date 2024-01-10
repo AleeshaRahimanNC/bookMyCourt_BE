@@ -19,8 +19,16 @@ const doSignUp = (req, res) =>{
 
 }
 
-// const doLogin = (req, res) =>{
-    
-// }
+const doLogin = async(req, res) =>{
+    const userDetails = await USERS.findOne({email:req.body.email})
+if(userDetails){
+        if(userDetails.password===req.body.password){
+            res.status(200).json({message:'Login Successfull'})
+        }
+}else{
+    res.status(401).json({message:'Invalid Credentials'})
+}
 
-module.exports = {doSignUp}
+ }
+
+module.exports = {doSignUp, doLogin}
