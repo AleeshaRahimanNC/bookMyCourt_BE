@@ -7,6 +7,7 @@ const dotEnv = require('dotenv').config();
 
 var authRouter = require('./routes/authRouter');
 var usersRouter = require('./routes/users');
+var adminRouter = require('./routes/admin');
 const connectDB = require('./config/db')
 connectDB()
 const cors = require('cors')
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
  
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+app.use('/admin', adminRouter);
 
 
 // catch 404 and forward to error handler
