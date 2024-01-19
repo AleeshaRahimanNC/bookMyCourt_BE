@@ -1,9 +1,8 @@
 var express = require('express');
-var router = express.Router();
+const { userAuth } = require('../middleWares/authorization');
+const { getCourtsData } = require('../controllers/userController');
+var  router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.get('/getCourtsData',userAuth, getCourtsData)
 
 module.exports = router;

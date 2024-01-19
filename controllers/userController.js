@@ -1,5 +1,7 @@
 const USERS = require("../models/userSchema");
+const COURTS = require("../models/courtSchema")
 const jwt = require("jsonwebtoken");
+
 
 const doSignUp = (req, res) => {
   try {
@@ -46,4 +48,13 @@ const doLogin = async (req, res) => {
   }
 };
 
-module.exports = { doSignUp, doLogin };
+const getCourtsData = (req,res)=>{
+  COURTS.find().then((response)=>{
+    res.status(200).json(response)
+  })
+  .catch((err)=>{
+    res.status(500).json('server error ')
+  })
+}
+
+module.exports = { doSignUp, doLogin, getCourtsData };
