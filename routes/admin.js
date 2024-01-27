@@ -1,7 +1,8 @@
 var express = require("express");
-const { createCourt } = require("../controllers/adminController");
+const { createCourt,addtimeslotsData } = require("../controllers/adminController");
 var router = express.Router();
 const multer = require("multer");
+const { userAuth } = require("../middleWares/authorization");
 
 const fileStorage = multer.diskStorage({
   destination: (req,file,cb) => {
@@ -13,6 +14,7 @@ const fileStorage = multer.diskStorage({
 });
 
 const uploadImage = multer({storage: fileStorage});
-router.post("/createCourt", uploadImage.single('image'),createCourt);
+router.post("/createCourt", userAuth, uploadImage.single('image'),createCourt);
+router.post("/addtimeslotsData", userAuth,addtimeslotsData);
 
 module.exports = router;
