@@ -14,7 +14,7 @@ const fileStorage = multer.diskStorage({
 });
 
 const uploadImage = multer({storage: fileStorage});
-router.post("/createCourt", userAuth, uploadImage.single('image'),createCourt);
+router.post("/createCourt", uploadImage.single('image'),createCourt);
 router.post("/addtimeslotsData", userAuth,addtimeslotsData);
 
 module.exports = router;
