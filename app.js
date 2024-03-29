@@ -3,16 +3,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const dotEnv = require('dotenv').config();
+const dotEnv = require('dotenv');
+dotEnv.config()
 
-var authRouter = require('./routes/authRouter');
-var usersRouter = require('./routes/users');
-var adminRouter = require('./routes/admin');
+const authRouter = require('./routes/authRouter');
+const usersRouter = require('./routes/users');
+const adminRouter = require('./routes/admin');
+// const courtsRouter = require('./routes/courts');
+// const paymentRouter = require('./routes/payments');
+
 const connectDB = require('./config/db')
 connectDB()
 const cors = require('cors')
 
-var app = express();
+const app = express();
 
 app.use(cors())
 
@@ -29,6 +33,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 app.use('/admin', adminRouter);
+// app.use('/courts', courtsRouter);
+// app.use('/payments', paymentRouter);
+
+
 
 
 // catch 404 and forward to error handler
