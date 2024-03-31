@@ -2,14 +2,15 @@ var express = require("express");
 const { createCourt,addtimeslotsData } = require("../controllers/adminController");
 var router = express.Router();
 const multer = require("multer");
-const { userAuth } = require("../middleWares/authorization");
+const { userAuth, adminAuth } = require("../middleWares/authorization");
 
 const fileStorage = multer.diskStorage({
   destination: (req,file,cb) => {
     cb(null, 'public/images');
   },
   filename: (req,file,cb) => {
-    cb(null,Date.now()+'-'+file.originalname);
+    // cb(null,Date.now()+'-'+file.originalname);
+    cb(null,file.fieldname+'-'+Date.now()+file.originalname);
   },
 });
 
