@@ -1,6 +1,6 @@
 const { json } = require("express");
 const COURTS = require("../models/courtSchema");
-const SCHEDULES = require("../models/courtSchedulesModel");
+const COURTSCHEDULES = require("../models/courtSchedulesModel");
 
 const createCourt = (req, res) => {
   // console.log(res);
@@ -27,6 +27,8 @@ const createCourt = (req, res) => {
 const addtimeslotsData = (req, res) => {
   console.log(req.body);
   const { startDate, endDate, cost, slots, courtId } = req.body;
+  // let currentDate = new Date(new Date(startDate).setUTCHours(0,0,0,0));
+  // const lastDate = new Date(new Date(endDate).setUTCHours(0,0,0,0));
   let currentDate = new Date(startDate);
   const lastDate = new Date(endDate);
   const slotObjects = [];
@@ -47,12 +49,17 @@ const addtimeslotsData = (req, res) => {
     //currentDate.getDate()+1==>3
     currentDate.setDate(currentDate.getDate() + 1);
   }
-  SCHEDULES.insertMany(slotObjects)
+  COURTSCHEDULES.insertMany(slotObjects)
     .then((response) => {
-      res.status(200).json("Schedules created successfully");
+      res.status(200).json({message:"Schedules created successfully"});
     })
     .catch((err) => {
-      res.status(500);
+      if(err.code===11000){
+        res.status(500).json({message:'Already scheduled, duplication'})
+      }else{
+        res.status(500).json({message:'Something went wrong'})
+      }
+      
     });
   console.log(slotObjects, "slotObjects");
 };
