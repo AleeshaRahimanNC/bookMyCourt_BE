@@ -16,16 +16,14 @@ const courtSchedulesSchema = mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "users",
   },
-  cancellation: {
-    type: Array,
-  },
   courtId: {
     type: mongoose.Types.ObjectId,
     required: true,
   },
-  paymentOrders: {
-    type: Array,
-  },
+  orderId: {
+    type: mongoose.Types.ObjectId,
+    ref: "orders",
+  }
 });
 
 const CourtSchedules = mongoose.model("courtSchedules", courtSchedulesSchema);

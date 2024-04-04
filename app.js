@@ -10,7 +10,7 @@ const authRouter = require('./routes/authRouter');
 const usersRouter = require('./routes/users');
 const adminRouter = require('./routes/admin');
 // const courtsRouter = require('./routes/courts');
-// const paymentRouter = require('./routes/payments');
+const paymentRouter = require('./routes/payments');
 
 const connectDB = require('./config/db')
 connectDB()
@@ -34,7 +34,7 @@ app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 app.use('/admin', adminRouter);
 // app.use('/courts', courtsRouter);
-// app.use('/payments', paymentRouter);
+app.use('/payments', paymentRouter);
 
 
 
